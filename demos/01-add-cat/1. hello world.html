@@ -40,7 +40,15 @@ https://unpkg.com/browse/ipfs@0.40.0/dist/
         await catFile()
       }
 
+      async function count_peers () {
+        const peerInfos = await node.swarm.peers()
+        const count     = peerInfos.length
+        const peerIds   = peerInfos.map(info => info.peer._idB58String)
+        console.log('peers:', {count, peerIds, peerInfos})
+      }
+
       add_then_cat()
+      setInterval(count_peers, 10000)
     })
   </script>
 </head>
