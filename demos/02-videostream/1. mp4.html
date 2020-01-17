@@ -1,0 +1,88 @@
+<!--
+https://github.com/ipfs/js-ipfs/tree/master/examples/browser-readablestream
+https://github.com/ipfs/js-ipfs/blob/master/examples/browser-readablestream/index.html
+
+https://unpkg.com/ipfs/dist/index.min.js
+https://unpkg.com/browse/ipfs@0.40.0/dist/
+
+https://github.com/jhiesey/videostream
+https://github.com/jhiesey/videostream/releases/tag/v3.2.1
+https://github.com/jhiesey/videostream/blob/v3.2.1/dist/index.js
+
+https://github.com/download13/ipfstube
+  demo video CID: QmU1GSqu4w29Pt7EEM57Lhte8Lce6e7kuhRHo6rSNb2UaC
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>IPFS Videostream example</title>
+
+    <script src="js/lib/js-ipfs-v0.40.0.min.js"></script>
+    <script src="js/lib/videostream-v3.2.1.js"></script>
+    <script>const VideoStream = window.videostream</script>
+    <script src="js/utils.js"></script>
+    <script src="js/index.js"></script>
+
+    <style type="text/css">
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
+}
+
+pre {
+  flex-grow: 2;
+  padding: 10px;
+  height: calc(100vh - 45px);
+  overflow: auto;
+}
+
+#form-wrapper {
+  padding: 20px;
+}
+
+form {
+  padding-bottom: 10px;
+  display: flex;
+}
+
+#hash {
+  display: inline-block;
+  margin: 0 10px 10px 0;
+  font-size: 16px;
+  flex-grow: 2;
+  padding: 5px;
+}
+
+button {
+  display: inline-block;
+  font-size: 16px;
+  height: 32px;
+}
+
+video {
+  max-width: 50vw;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="container" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+      <div id="form-wrapper">
+          <form>
+            <input type="text" id="hash" placeholder="Hash" value="QmU1GSqu4w29Pt7EEM57Lhte8Lce6e7kuhRHo6rSNb2UaC" disabled />
+            <button id="gobutton" disabled>Go!</button>
+          </form>
+          <video id="video" controls></video>
+      </div>
+      <pre id="output" style="display: inline-block"></pre>
+    </div>
+  </body>
+</html>
