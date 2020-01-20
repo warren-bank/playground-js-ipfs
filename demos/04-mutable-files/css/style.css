@@ -1,0 +1,9 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+pre#output {
+  padding: 10px;
+  overflow: auto;
+}
