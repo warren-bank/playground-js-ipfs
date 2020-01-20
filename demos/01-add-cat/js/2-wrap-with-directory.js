@@ -65,6 +65,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (file0 !== files[0].content) throw new Error(`assersion failed: incorrect file0 content: "${file0}"`)
     if (file1 !== files[1].content) throw new Error(`assersion failed: incorrect file1 content: "${file1}"`)
     if (file2 !== files[2].content) throw new Error(`assersion failed: incorrect file2 content: "${file2}"`)
+
+    append_html(`
+      <h4>Directory via public IPFS HTTP gateway:</h4>
+      <ul>
+        <li><a target="_blank" href="https://ipfs.io/ipfs/${cid}/${files[0].path}">/ipfs/${cid}/${files[0].path}</a></li>
+        <li><a target="_blank" href="https://ipfs.io/ipfs/${cid}/${files[1].path}">/ipfs/${cid}/${files[1].path}</a></li>
+        <li><a target="_blank" href="https://ipfs.io/ipfs/${cid}/${files[2].path}">/ipfs/${cid}/${files[2].path}</a></li>
+      </ul>
+    `)
   }
 
   await add_files_in_directory()

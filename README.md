@@ -11,7 +11,7 @@
 1. [add a UUID string to the in-memory blockstore, cat locally, download through a public HTTP gateway](https://warren-bank.github.io/playground-js-ipfs/demos/01-add-cat/1.%20uuid.html)
    - from [example](https://github.com/ipfs/js-ipfs/tree/master/examples/browser-script-tag)
 2. [emulate a nested directory structure containing text files](https://warren-bank.github.io/playground-js-ipfs/demos/01-add-cat/2.%20wrap-with-directory.html)
-   - from [example](https://github.com/ipfs/js-ipfs/tree/master/examples/browser-script-tag)
+   - from [example](https://proto.school/#/regular-files-api/05)
 3. [play an mp4 video using a `ReadableStream`](https://warren-bank.github.io/playground-js-ipfs/demos/02-videostream/1.%20mp4.html)
    - from [example](https://github.com/ipfs/js-ipfs/tree/master/examples/browser-readablestream)
 4. [read nested data using link](https://warren-bank.github.io/playground-js-ipfs/demos/03-dag/1.%20basics.html)

@@ -20,3 +20,11 @@ const log = (line) => {
     return node
   }
 }
+
+const append_html = (html) => {
+  if (!html) return
+
+  const node = document.createElement('div')
+  node.innerHTML = html
+  document.body.appendChild(node)
+}
