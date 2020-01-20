@@ -47,14 +47,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     log(`Content IDs: ${JSON.stringify(cids, null, 4)}`)
 
     const root_directory = cids[0]
+    const cid = root_directory.hash
+
     if (root_directory.path !== "") throw new Error(`assersion failed: incorrect cids[0] root directory path: "${cids[0].path}"`)
 
-    const cid   = root_directory.hash
+    const log_ls = async (path) => {
+      const data = await ipfs.ls(path)
+      log(`ls '${path}': ${JSON.stringify(data, null, 4)}`)
+    }
+
+    await log_ls(`${cid}`)
+    await log_ls(`${cid}/cats`)
+
     const file0 = (await ipfs.cat(`/ipfs/${cid}/${files[0].path}`)).toString()
     const file1 = (await ipfs.cat(`/ipfs/${cid}/${files[1].path}`)).toString()
     const file2 = (await ipfs.cat(`/ipfs/${cid}/${files[2].path}`)).toString()
 
-    log('Directory:')
+    if (file0 !== files[0].content) throw new Error(`assersion failed: incorrect file0 content: "${file0}"`)
+    if (file1 !== files[1].content) throw new Error(`assersion failed: incorrect file1 content: "${file1}"`)
+    if (file2 !== files[2].content) throw new Error(`assersion failed: incorrect file2 content: "${file2}"`)
+
+    log('cat files:')
     log(`  /ipfs/${cid}/${files[0].path}`)
     log(`    ${file0}`)
     log(`  /ipfs/${cid}/${files[1].path}`)
@@ -62,12 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     log(`  /ipfs/${cid}/${files[2].path}`)
     log(`    ${file2}`)
 
-    if (file0 !== files[0].content) throw new Error(`assersion failed: incorrect file0 content: "${file0}"`)
-    if (file1 !== files[1].content) throw new Error(`assersion failed: incorrect file1 content: "${file1}"`)
-    if (file2 !== files[2].content) throw new Error(`assersion failed: incorrect file2 content: "${file2}"`)
-
     append_html(`
-      <h4>Directory via public IPFS HTTP gateway:</h4>
+      <h4>download files through public IPFS HTTP gateway:</h4>
       <ul>
         <li><a target="_blank" href="https://ipfs.io/ipfs/${cid}/${files[0].path}">/ipfs/${cid}/${files[0].path}</a></li>
         <li><a target="_blank" href="https://ipfs.io/ipfs/${cid}/${files[1].path}">/ipfs/${cid}/${files[1].path}</a></li>
