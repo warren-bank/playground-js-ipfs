@@ -36,6 +36,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     ]
 
     const cids = await ipfs.add(files, {wrapWithDirectory: true})
+    const root_directory = cids[cids.length - 1]
+    const cid = root_directory.hash
+
+    if (root_directory.path !== "") throw new Error(`assertion failed: incorrect root directory path: "${root_directory.path}"`)
+
     cids.sort((a, b) => {
       return (a.path < b.path)
         ? -1
@@ -46,10 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     log(`Content IDs: ${JSON.stringify(cids, null, 4)}`)
 
-    const root_directory = cids[0]
-    const cid = root_directory.hash
-
-    if (root_directory.path !== "") throw new Error(`assersion failed: incorrect cids[0] root directory path: "${cids[0].path}"`)
+    if (cids[0] !== root_directory) throw new Error(`assertion failed: incorrect sort order, cids[0] is not the root directory: "${cids[0].path}"`)
 
     const log_ls = async (path) => {
       const data = await ipfs.ls(path)
@@ -63,9 +65,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const file1 = (await ipfs.cat(`/ipfs/${cid}/${files[1].path}`)).toString()
     const file2 = (await ipfs.cat(`/ipfs/${cid}/${files[2].path}`)).toString()
 
-    if (file0 !== files[0].content) throw new Error(`assersion failed: incorrect file0 content: "${file0}"`)
-    if (file1 !== files[1].content) throw new Error(`assersion failed: incorrect file1 content: "${file1}"`)
-    if (file2 !== files[2].content) throw new Error(`assersion failed: incorrect file2 content: "${file2}"`)
+    if (file0 !== files[0].content) throw new Error(`assertion failed: incorrect file0 content: "${file0}"`)
+    if (file1 !== files[1].content) throw new Error(`assertion failed: incorrect file1 content: "${file1}"`)
+    if (file2 !== files[2].content) throw new Error(`assertion failed: incorrect file2 content: "${file2}"`)
 
     log('cat files:')
     log(`  /ipfs/${cid}/${files[0].path}`)
