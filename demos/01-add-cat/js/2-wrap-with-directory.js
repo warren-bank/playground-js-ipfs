@@ -61,6 +61,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     await log_ls(`${cid}`)
     await log_ls(`${cid}/cats`)
 
+    const log_get = async (path) => {
+      const data = await ipfs.get(path)
+
+      // serialize file content Buffer
+      data.forEach(block => {
+        if (block && (block.type === 'file') && block.content && (block.content instanceof Ipfs.Buffer)) {
+          block.content = block.content.toString()
+        }
+      })
+      log(`get '${path}': ${JSON.stringify(data, null, 4)}`)
+    }
+
+    await log_get(`${cid}`)
+
     const file0 = (await ipfs.cat(`/ipfs/${cid}/${files[0].path}`)).toString()
     const file1 = (await ipfs.cat(`/ipfs/${cid}/${files[1].path}`)).toString()
     const file2 = (await ipfs.cat(`/ipfs/${cid}/${files[2].path}`)).toString()
